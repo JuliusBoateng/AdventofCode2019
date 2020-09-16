@@ -1,0 +1,81 @@
+#!/usr/bin/env python3
+import sys
+import collections
+
+Position = collections.namedtuple('Position',['x','y'])
+
+def grid_list(wire):
+    position = Position(0,0)
+    position_list = []
+
+    for change in wire:
+        direction = change[0]
+        value = int(change[1:])
+
+        if direction == "R":
+            new_position = Position(position.x + value, position.y)
+            position_list.append([(position.x,new_position.x),position.y])
+
+        if direction == "L":
+            new_position = Position(position.x - value, position.y)
+            position_list.append([(new_position.x,position.x),position.y])
+
+        if direction == "U":
+            new_position = Position(position.x, position.y + value)
+            position_list.append([(position.x),(position.y,new_position.y)])
+
+        if direction == "D":
+            new_position = Position(position.x, position.y - value)
+            position_list.append([(position.x),(new_position.y,position.y)])
+
+        position = new_position
+
+    return position_list
+
+def main():
+    wire1 = sys.stdin.readline().strip().split(",")
+    wire2 = sys.stdin.readline().strip().split(",")
+
+    position_list1 = grid_list(wire1)
+    print(position_list1)
+    # position_list2 = grid_list(wire2)
+
+    # for x in range(len(position_list1) - 1):
+    #     start = position_list1[x]
+    #     end = position_list1[x+1]
+    #     xpos = 0
+    #     xpos_list = []
+    #     ypos = 0
+    #     ypos_list = []
+    #     list = ""
+    #
+    #     if start.x == end.x:
+    #         list = "ypos_list"
+    #         xpos = start.x
+    #         ypos_list.append(start.y)
+    #         ypos_list.append(end.y)
+    #     else:
+    #         list = "xpos_list"
+    #         xpos_list.append(start.x)
+    #         xpos_list.append(end.x)
+    #         ypos = start.y
+
+
+
+
+
+
+
+
+
+
+
+    # print(position_list)
+
+
+
+
+
+
+if __name__ == "__main__":
+    main()
